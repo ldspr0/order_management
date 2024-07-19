@@ -1,0 +1,30 @@
+<!--
+  @description       : 
+  @author            : Alexander Ivanov
+  @group             : 
+  @last modified on  : 07-20-2024
+  @last modified by  : Alexander Ivanov
+-->
+<template>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-1">
+                <c-om-header account={account}></c-om-header>
+        </div>
+        <div class="slds-col slds-size_1-of-5">
+                <c-om-filter active-filters={activeFilters} ></c-om-filter>
+        </div>
+        <div class="slds-col slds-size_4-of-5">
+            <span>
+                <div class="slds-grid slds-wrap">
+                    <template if:true={items}>
+                        <template for:each={items} for:item="item">
+                            <div class="slds-col slds-size_1-of-4" key={item.name}>
+                                <div class="slds-card slds-card_boundary slds-grid"><c-om-product-item item={item}></c-om-product-item></div>
+                            </div>
+                        </template>
+                    </template>
+                </div>
+            </span>
+        </div>
+    </div>
+</template>

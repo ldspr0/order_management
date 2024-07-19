@@ -1,3 +1,32 @@
+<!--
+  @description       : 
+  @author            : Alexander Ivanov
+  @group             : 
+  @last modified on  : 07-20-2024
+  @last modified by  : Alexander Ivanov
+-->
+
 <template>
-    
+    <lightning-card title="Filters:" icon-name="custom:custom67">
+        <ul class="slds-var-m-around_medium">
+            <template lwc:if={treeModel}>
+                <lightning-tree
+                    onselect={handleSelect}
+                    items={treeModel}
+                ></lightning-tree>
+            </template>
+        </ul>
+    </lightning-card>
+
+    <lightning-card title="Active Filters" icon-name="custom:custom67">
+        <template lwc:if={filtersToActivate}>
+            <ul class="slds-var-m-around_medium">
+                <template for:each={filtersToActivate} for:item="filter">
+                    <li key={filter}>
+                        {filter}
+                    </li>
+                </template>
+            </ul>
+        </template>
+    </lightning-card>
 </template>
