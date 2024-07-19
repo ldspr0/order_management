@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>OrderItem__c.OrderId__c</members>
+        <members>OrderItem__c.Price__c</members>
+        <members>OrderItem__c.ProductId__c</members>
+        <members>OrderItem__c.Quantity__c</members>
+        <members>Order__c.AccountId__c</members>
+        <members>Order__c.TotalPrice__c</members>
+        <members>Order__c.TotalProductCount__c</members>
+        <members>Product__c.Description__c</members>
+        <members>Product__c.Family__c</members>
+        <members>Product__c.Image__c</members>
+        <members>Product__c.Price__c</members>
+        <members>Product__c.Type__c</members>
+        <members>User.IsManager__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>CustomLabels</members>
+        <name>CustomLabels</name>
+    </types>
+    <types>
+        <members>Account</members>
+        <members>OrderItem__c</members>
+        <members>Order__c</members>
+        <members>Product__c</members>
+        <members>User</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>OrderItem__c-en_US</members>
+        <members>Order__c-en_US</members>
+        <members>Product__c-en_US</members>
+        <name>CustomObjectTranslation</name>
+    </types>
+        <members>OrderItem__c-Order Item Layout</members>
+        <members>Order__c-Order Layout</members>
+        <members>Product__c-Product Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>Order_Management_Basic</members>
+        <name>PermissionSet</name>
+    </types>
+    <types>
+        <members>Admin</members>
+        <members>Standard</members>
+        <name>Profile</name>
+    </types>
+    <types>
+        <members>Task.UpdateStatus</members>
+        <name>QuickAction</name>
+    </types>
+    <types>
+        <members>ApexDevNet</members>
+        <name>RemoteSiteSetting</name>
+    </types>
+    <types>
+        <members>WorkDotCom</members>
+        <name>Settings</name>
+    </types>
+    <version>58.0</version>
+</Package>
