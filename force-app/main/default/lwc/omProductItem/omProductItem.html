@@ -1,3 +1,17 @@
 <template>
-    
+    <template lwc:if={item}>
+        <lightning-card title={item.Name}>
+            <div class="slds-card__body slds-card__body_inner heighLimit40">
+                <div class="slds-grid slds-grid_vertical">
+                    <div>{descriptionReduced}</div>
+                </div>
+            </div>
+            <div slot="footer">
+                <lightning-button-group>
+                    <lightning-button label="Details" icon-name="utility:record_collection"></lightning-button>
+                    <lightning-button label="Add" icon-name="utility:add"></lightning-button>
+                </lightning-button-group>
+            </div>
+        </lightning-card>
+    </template>
 </template>

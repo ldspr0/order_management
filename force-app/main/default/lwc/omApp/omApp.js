@@ -1,102 +1,29 @@
-import { LightningElement, wire, api } from 'lwc';
+import { LightningElement, wire, track } from 'lwc';
 import { CurrentPageReference } from "lightning/navigation";
-
-const ITEMS = [
-    {
-    name: 'car',
-    description: 'Description of a car',
-    type: 'Type I',
-    family: 'Family I',
-    price : '$5000',
-    imgUrl : 'https://www.glyffix.com:443/Image/ShowUploadedImage/602',
-    ready: true
-  },
-  {
-    name: 'car',
-    description: 'Description of a car',
-    type: 'Type I',
-    family: 'Family I',
-    price : '$5000',
-    imgUrl : 'https://www.glyffix.com:443/Image/ShowUploadedImage/602',
-    ready: true
-  },
-  {
-    name: 'car',
-    description: 'Description of a car',
-    type: 'Type I',
-    family: 'Family I',
-    price : '$5000',
-    imgUrl : 'https://www.glyffix.com:443/Image/ShowUploadedImage/602',
-    ready: true
-  },
-  {
-    name: 'car',
-    description: 'Description of a car',
-    type: 'Type I',
-    family: 'Family I',
-    price : '$5000',
-    imgUrl : 'https://www.glyffix.com:443/Image/ShowUploadedImage/602',
-    ready: true
-  },
-  {
-    name: 'car',
-    description: 'Description of a car',
-    type: 'Type I',
-    family: 'Family I',
-    price : '$5000',
-    imgUrl : 'https://www.glyffix.com:443/Image/ShowUploadedImage/602',
-    ready: true
-  },
-  {
-    name: 'car',
-    description: 'Description of a car',
-    type: 'Type I',
-    family: 'Family I',
-    price : '$5000',
-    imgUrl : 'https://www.glyffix.com:443/Image/ShowUploadedImage/602',
-    ready: true
-  },
-  {
-    name: 'car',
-    description: 'Description of a car',
-    type: 'Type I',
-    family: 'Family I',
-    price : '$5000',
-    imgUrl : 'https://www.glyffix.com:443/Image/ShowUploadedImage/602',
-    ready: true
-  },
-  {
-    name: 'car',
-    description: 'Description of a car',
-    type: 'Type I',
-    family: 'Family I',
-    price : '$5000',
-    imgUrl : 'https://www.glyffix.com:443/Image/ShowUploadedImage/602',
-    ready: true
-  },
-  {
-    name: 'car',
-    description: 'Description of a car',
-    type: 'Type I',
-    family: 'Family I',
-    price : '$5000',
-    imgUrl : 'https://www.glyffix.com:443/Image/ShowUploadedImage/602',
-    ready: true
-  },
-  
-];
-
+import getProducts from '@salesforce/apex/OrderManagementAppService.getProducts';
 export default class OmApp extends LightningElement {
+    @track products;
+    @track showTable = false;
+    activeFilters;
+    error;
+
     @wire(CurrentPageReference)
     currentPageRef;
-  
-    @api accountId;
-  
-    get accountId() {
-      return this.currentPageRef.state.c__accountId;
+
+    @wire(getProducts)
+    getPrdcts({ error, data }) {
+        if (data) {
+            this.products = data;
+            this.showTable = true;
+        } else {
+            this.error = error;
+        }
     }
 
-    activeFilters;
+    get accountId() {
+        return this.currentPageRef.state.c__accountId;
+    }
 
-    items = ITEMS;
+    set accountId(value) {
+    }
 }
