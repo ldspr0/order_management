@@ -1,6 +1,7 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, wire, api } from 'lwc';
+import { CurrentPageReference } from "lightning/navigation";
 
-const items = [
+const ITEMS = [
     {
     name: 'car',
     description: 'Description of a car',
@@ -86,5 +87,16 @@ const items = [
 ];
 
 export default class OmApp extends LightningElement {
+    @wire(CurrentPageReference)
+    currentPageRef;
+  
+    @api accountId;
+  
+    get accountId() {
+      return this.currentPageRef.state.c__accountId;
+    }
+
     activeFilters;
+
+    items = ITEMS;
 }
