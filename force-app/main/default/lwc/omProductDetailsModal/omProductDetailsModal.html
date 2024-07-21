@@ -1,0 +1,20 @@
+<template>
+    <lightning-modal-header label={item.Name}></lightning-modal-header>
+    <lightning-modal-body>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_3-of-4">
+                <div class="slds-text-heading_medium">Description:</div>
+                <lightning-formatted-text value={item.Description__c}></lightning-formatted-text>
+            </div>
+            <div class="slds-col slds-size_1-of-4">
+                <div class="slds-text-heading_medium">Price:</div>
+                <lightning-formatted-number format-style="currency" value={item.Price__c} currency-code="USD"></lightning-formatted-number>
+                <img src={item.Image__c} alt={item.Name} />
+                <div class="slds-text-heading_medium">Type:</div>
+                <lightning-formatted-text value={item.Type__c}></lightning-formatted-text>
+                <div class="slds-text-heading_medium">Family:</div>
+                <lightning-formatted-text value={item.Family__c}></lightning-formatted-text>
+            </div>
+        </div>                    
+    </lightning-modal-body>
+</template>

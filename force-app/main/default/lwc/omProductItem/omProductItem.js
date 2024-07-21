@@ -1,4 +1,5 @@
 import { LightningElement, api } from 'lwc';
+import openProductModal from 'c/omProductDetailsModal';
 
 export default class OmProductItem extends LightningElement {
     @api item;
@@ -13,5 +14,12 @@ export default class OmProductItem extends LightningElement {
         } else {
             this.descriptionReduced = description;
         }
+    }
+
+    openDescription() {
+        openProductModal.open({
+            size: 'medium',
+            item: this.item
+        });
     }
 }
