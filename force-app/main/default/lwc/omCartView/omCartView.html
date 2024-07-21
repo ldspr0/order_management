@@ -1,6 +1,14 @@
 <template>
-    <lightning-modal-header label="Your Cart"></lightning-modal-header>
-    <lightning-modal-body>
+    <lightning-modal-header label="Your Order"></lightning-modal-header>
+    <lightning-modal-body lwc:if={orderId}>
+        <lightning-record-view-form object-api-name="Order__c" record-id={orderId}>
+            <a href={url}><lightning-output-field field-name="Name"> </lightning-output-field></a>
+            <lightning-output-field field-name="AccountId__c"> </lightning-output-field>
+            <lightning-output-field field-name="TotalProductCount__c"> </lightning-output-field>
+            <lightning-output-field field-name="TotalPrice__c"> </lightning-output-field>
+        </lightning-record-view-form>
+    </lightning-modal-body>
+    <lightning-modal-body lwc:else>
         <table class="slds-table slds-table_cell-buffer slds-table_bordered"
             aria-labelledby="element-with-table-label other-element-with-table-label">
             <thead>
@@ -18,22 +26,26 @@
             </thead>
             <tbody>
                 <template for:each={cartItemsForTable} for:item="cartItem">
-                    <tr class="slds-hint-parent" key={cartItem.index}>
+                    <tr class="slds-hint-parent" key={cartItem.id}>
                         <th scope="row" data-label="Cart Item Name">
                             <div class="slds-truncate" title={cartItem.name}>{cartItem.name}</div>
                         </th>
                         <td data-label="Quantity">
-                            <div class="slds-truncate" title={cartItem.quantity}><lightning-formatted-number value={cartItem.quantity}></lightning-formatted-number></div>
+                            <div class="slds-truncate" title={cartItem.quantity}><lightning-formatted-number
+                                    value={cartItem.quantity}></lightning-formatted-number></div>
                         </td>
                         <td data-label="Price">
-                            <div class="slds-truncate" title={cartItem.price}><lightning-formatted-number format-style="currency" value={cartItem.price} currency-code="USD"></lightning-formatted-number></div>
+                            <div class="slds-truncate" title={cartItem.price}><lightning-formatted-number
+                                    format-style="currency" value={cartItem.price}
+                                    currency-code="USD"></lightning-formatted-number></div>
                         </td>
                     </tr>
                 </template>
                 <tr>
                     <td colspan="3" style="text-align: end;" data-label="Summary">
-                        <div class="slds-truncate" title="Overall"><strong>Overall: </strong> 
-                            <lightning-formatted-number format-style="currency" value={overallPrice} currency-code="USD"></lightning-formatted-number>
+                        <div class="slds-truncate" title="Overall"><strong>Overall: </strong>
+                            <lightning-formatted-number format-style="currency" value={overallPrice}
+                                currency-code="USD"></lightning-formatted-number>
                         </div>
                     </td>
                 </tr>
@@ -41,7 +53,7 @@
         </table>
     </lightning-modal-body>
     <lightning-modal-footer>
-        <lightning-button variant="brand" label="Checkout" onclick={checkout}></lightning-button>
+        <lightning-button lwc:if={showCheckout} variant="brand" label="Checkout" onclick={checkout}></lightning-button>
         <lightning-button label="Close" onclick={closeModal}></lightning-button>
     </lightning-modal-footer>
 </template>

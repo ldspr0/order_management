@@ -1,16 +1,24 @@
-import { api, track } from "lwc";
 import LightningModal from 'lightning/modal';
-// import getImgUrlString from '@salesforce/apex/OrderManagementAppService.getUrlStringFromServer';
+import { api, track } from "lwc";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import { NavigationMixin } from 'lightning/navigation';
 
-export default class OmCartView extends LightningModal {
+import createOrderAndItems from '@salesforce/apex/OrderManagementAppService.createOrderAndItems';
+
+
+export default class OmCartView extends NavigationMixin(LightningModal) {
     @api cartItems;
+    @api accountId;
     @track cartItemsForTable = [];
     overallPrice = 0;
+    orderId;
+    showCheckout = true;
+    url;
 
 
     connectedCallback() {
         let cartItemNames = [];
-        this.cartItems.forEach((item, index) => {
+        this.cartItems.forEach(item => {
             this.overallPrice += item.Price__c;
 
             let sameItemIndex = cartItemNames.indexOf(item.Name);
@@ -20,25 +28,44 @@ export default class OmCartView extends LightningModal {
                 this.cartItemsForTable[sameItemIndex].price += item.Price__c;
             } else {
                 cartItemNames.push(item.Name);
-                this.cartItemsForTable.push({index: index, name: item.Name, quantity: 1, price: item.Price__c});
+                this.cartItemsForTable.push({ id: item.Id, name: item.Name, quantity: 1, price: item.Price__c, accountId: this.accountId });
             }
         });
     }
 
     checkout() {
-        // getImgUrlString({
-        //     productName: this.productName
-        // })
-        //     .then(result => {
-        //         if (result) {
-        //             this.imgUrl = result;
-        //         } else {
-        //             this.imgUrl = "Image not found";
-        //         }
+        createOrderAndItems({
+            orderItems: JSON.stringify(this.cartItemsForTable)
+        })
+            .then(result => {
+                if (result) {
+                    console.log(result);
+                    if (result.startsWith("Error:")) {
+                        dispatchEvent(new ShowToastEvent({
+                            title: "Error",
+                            message: result,
+                            variant: "error"
+                        }));
+                    } else {
+                        //this.close();
+                        //TODO: doesn't work for some reason
+                        this.orderId = result;
+                        this.showCheckout = false;
+                        this.cartItemsForTable = [];
+                        this.orderIdPage = {
+                            type: "standard__recordPage",
+                            attributes: {
+                                recordId: result,
+                                actionName: "view",
+                              },
+                          };
+                          this[NavigationMixin.GenerateUrl](this.orderIdPage).then((url) => (this.url = url));
 
-        //     });
-
-        // this.close();
+                    }
+                } else {
+                    console.error("LWC: Unknown Error");
+                }
+            });
     }
 
     closeModal() {

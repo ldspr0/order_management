@@ -5,7 +5,6 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getProducts from '@salesforce/apex/OrderManagementAppService.getProducts';
 export default class OmApp extends LightningElement {
     @track products;
-    @track showTable = false;
     @track cartItems = [];
     activeFilters;
     error;
@@ -17,7 +16,6 @@ export default class OmApp extends LightningElement {
     getPrdcts({ error, data }) {
         if (data) {
             this.products = data;
-            this.showTable = true;
         } else {
             this.error = error;
         }

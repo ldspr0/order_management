@@ -13,7 +13,7 @@
         <p class="slds-p-horizontal_small">Account Number: {accountNumber}</p>
         <div slot="actions">
             <lightning-button-group>
-                <lightning-button label="Create Product" icon-name="utility:record_create"
+                <lightning-button lwc:if={isManager} label="Create Product" icon-name="utility:record_create"
                     onclick={createProduct} aria-haspopup="dialog"
                     ></lightning-button>
                 <lightning-button label="Cart" icon-name="utility:cart" onclick={openCart}></lightning-button>

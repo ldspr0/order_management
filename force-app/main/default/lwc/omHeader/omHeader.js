@@ -1,6 +1,7 @@
 import { LightningElement, api, wire } from "lwc";
 import { getRecord, getFieldValue  } from "lightning/uiRecordApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import isCurrentUserManager from '@salesforce/apex/OrderManagementAppService.isCurrentUserManager';
 
 import ACCOUNT_NAME_FIELD from "@salesforce/schema/Account.Name";
 import ACCOUNT_NUMBER_FIELD from "@salesforce/schema/Account.AccountNumber";
@@ -9,9 +10,19 @@ import createProductModal from "c/omCreateProduct";
 import openCartModal from "c/omCartView";
 
 
+
 export default class OmHeader extends LightningElement {
     @api accountId;
     @api cartItems;
+    isManager;
+
+    @wire(isCurrentUserManager)
+    getUserData({ error, data }) {
+        this.isManager = data;
+        if (error){
+            console.error(error);
+        }
+    }
     
     @wire(getRecord, { recordId: "$accountId", fields: [ACCOUNT_NAME_FIELD, ACCOUNT_NUMBER_FIELD], })
     account;
@@ -35,7 +46,8 @@ export default class OmHeader extends LightningElement {
         if (this.cartItems.length > 0){
             openCartModal.open({
                 size: 'medium',
-                cartItems: this.cartItems
+                cartItems: this.cartItems,
+                accountId: this.accountId
             });
         } else {
             this.dispatchEvent(
