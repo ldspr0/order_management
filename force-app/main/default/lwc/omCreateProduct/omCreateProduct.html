@@ -1,0 +1,20 @@
+<template>
+    <lightning-modal-header label="Create Product"></lightning-modal-header>
+    <lightning-modal-body>
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_3-of-5">
+                <lightning-record-form object-api-name={object} fields={myFields} onsuccess={handleProductCreated}
+                    onerror={handleProductCreateError} oncancel={handleAbort}>
+                </lightning-record-form>
+            </div>
+            <div class="slds-col slds-size_2-of-5">
+                <lightning-input type="text" label="Please enter Product Name image you want to search for"
+                    onblur={handleBlur}></lightning-input>
+                <lightning-button variant="brand" label="Search" onclick={getUrlStringFromServer}></lightning-button>
+                <hr />
+                <lightning-formatted-text value="Here is your url: "></lightning-formatted-text>
+                <lightning-formatted-text value={imgUrl}></lightning-formatted-text>
+            </div>
+        </div>
+    </lightning-modal-body>
+</template>
