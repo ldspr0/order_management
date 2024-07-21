@@ -17,6 +17,7 @@
                     onclick={createProduct} aria-haspopup="dialog"
                     ></lightning-button>
                 <lightning-button label="Cart" icon-name="utility:cart" onclick={openCart}></lightning-button>
+                <span lwc:if={cartItems} class="slds-badge slds-theme_success">{cartItems.length}</span>
             </lightning-button-group>
         </div>
     </lightning-card>

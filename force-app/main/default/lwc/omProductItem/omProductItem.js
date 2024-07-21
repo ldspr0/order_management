@@ -1,6 +1,5 @@
 import { LightningElement, api } from 'lwc';
 import openProductModal from 'c/omProductDetailsModal';
-
 export default class OmProductItem extends LightningElement {
     @api item;
     descriptionReduced;
@@ -21,5 +20,9 @@ export default class OmProductItem extends LightningElement {
             size: 'medium',
             item: this.item
         });
+    }
+
+    addToCart() {
+        this.dispatchEvent(new CustomEvent('add', {detail: this.item}));
     }
 }

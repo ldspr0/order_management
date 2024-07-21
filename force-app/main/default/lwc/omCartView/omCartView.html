@@ -1,0 +1,47 @@
+<template>
+    <lightning-modal-header label="Your Cart"></lightning-modal-header>
+    <lightning-modal-body>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered"
+            aria-labelledby="element-with-table-label other-element-with-table-label">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Cart Item Name">Cart Item Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Quantity">Quantity</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Price">Price</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={cartItemsForTable} for:item="cartItem">
+                    <tr class="slds-hint-parent" key={cartItem.index}>
+                        <th scope="row" data-label="Cart Item Name">
+                            <div class="slds-truncate" title={cartItem.name}>{cartItem.name}</div>
+                        </th>
+                        <td data-label="Quantity">
+                            <div class="slds-truncate" title={cartItem.quantity}><lightning-formatted-number value={cartItem.quantity}></lightning-formatted-number></div>
+                        </td>
+                        <td data-label="Price">
+                            <div class="slds-truncate" title={cartItem.price}><lightning-formatted-number format-style="currency" value={cartItem.price} currency-code="USD"></lightning-formatted-number></div>
+                        </td>
+                    </tr>
+                </template>
+                <tr>
+                    <td colspan="3" style="text-align: end;" data-label="Summary">
+                        <div class="slds-truncate" title="Overall"><strong>Overall: </strong> 
+                            <lightning-formatted-number format-style="currency" value={overallPrice} currency-code="USD"></lightning-formatted-number>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button variant="brand" label="Checkout" onclick={checkout}></lightning-button>
+        <lightning-button label="Close" onclick={closeModal}></lightning-button>
+    </lightning-modal-footer>
+</template>
