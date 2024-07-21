@@ -42,6 +42,75 @@ public with sharing class OrderManagementAppService {
         }
     }
 
+    @AuraEnabled(cacheable=true)
+    public static Boolean isCurrentUserManager(){
+        try {
+            if (Schema.sObjectType.User.isAccessible()) {
+       
+                User currentUser = [SELECT Id, IsManager__c FROM User WHERE Id = :UserInfo.getUserId()];
+                return currentUser.IsManager__c;
+            } else {
+                throw new AuraHandledException('You don\'t have access to the User Object');
+            }
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+
+    @AuraEnabled
+    public static String createOrderAndItems(String orderItems){
+        List<OrderItemWrapper> orderWrappers = (List<OrderItemWrapper>)JSON.deserializeStrict(orderItems, List<OrderItemWrapper>.class);
+
+        if (orderWrappers.isEmpty()){
+            return 'Error: There are no products in the cart';
+        }
+        String orderId = 'Error: Unknown Error';
+
+        if (Schema.sObjectType.Order__c.isCreateable()) {
+            Order__c order = new Order__c();
+            order.AccountId__c = orderWrappers[0].accountId;
+            Database.SaveResult result = Database.insert(order);
+
+            if (!result.isSuccess()) {
+                return 'Error: ' + result.getErrors()[0].getMessage();
+            }
+            orderId = result.Id;
+
+            
+            if (Schema.SObjectType.OrderItem__c.isCreateable()) {
+                List<OrderItem__c> orderItemsToCreate = new List<OrderItem__c>();
+                for (OrderItemWrapper orderWrapper : orderWrappers) {
+                    orderItemsToCreate.add(new OrderItem__c(OrderId__c = order.Id, ProductId__c = orderWrapper.id, Quantity__c = orderWrapper.quantity, Price__c = orderWrapper.price));
+                }
+                Database.insert(orderItemsToCreate);
+            } else {
+                return 'Error: You don\'t have access to create OrderItems';
+            }
+        } else {
+            return 'Error: You don\'t have access to create an Order';
+        }
+
+        return orderId;
+
+    }
+
+    class OrderItemWrapper {
+        public Id id;
+        public String name;
+        public Decimal price;
+        public Integer quantity;
+        public String accountId;
+
+        OrderItemWrapper(Id id, String name, Decimal price, Integer quantity, String accountId) {
+            this.id = id;
+            this.name = name;
+            this.price = price;
+            this.quantity = quantity;
+            this.accountId = accountId;
+        }
+    }
+
 
     class GlyffixWrapper {
         boolean success;
