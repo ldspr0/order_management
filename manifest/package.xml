@@ -38,12 +38,10 @@
         <members>User.IsManager__c</members>
         <name>CustomField</name>
     </types>
-        <types>
-        <members>Account</members>
+    <types>
         <members>OrderItem__c</members>
         <members>Order__c</members>
         <members>Product__c</members>
-        <members>User</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -52,6 +50,7 @@
         <members>Product__c-en_US</members>
         <name>CustomObjectTranslation</name>
     </types>
+    <types>
         <members>OrderItem__c-Order Item Layout</members>
         <members>Order__c-Order Layout</members>
         <members>Product__c-Product Layout</members>

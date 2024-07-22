@@ -1,5 +1,6 @@
 import { LightningElement, api } from 'lwc';
 import openProductModal from 'c/omProductDetailsModal';
+
 export default class OmProductItem extends LightningElement {
     @api item;
     descriptionReduced;

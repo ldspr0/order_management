@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label><!-- Family --></label>
+    <name>Family__c</name>
+    <picklistValues>
+        <masterLabel>Basic TV</masterLabel>
+        <translation><!-- Basic TV --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Kitchen Appliances</masterLabel>
+        <translation><!-- Kitchen Appliances --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Other Appliances</masterLabel>
+        <translation><!-- Other Appliances --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Smart TV</masterLabel>
+        <translation><!-- Smart TV --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>SmartPhones</masterLabel>
+        <translation><!-- SmartPhones --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>Tablets</masterLabel>
+        <translation><!-- Tablets --></translation>
+    </picklistValues>
+</CustomFieldTranslation>

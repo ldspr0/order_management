@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Family__c</fullName>
+    <externalId>false</externalId>
+    <label>Family</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Basic TV</fullName>
+                <default>false</default>
+                <label>Basic TV</label>
+            </value>
+            <value>
+                <fullName>Smart TV</fullName>
+                <default>false</default>
+                <label>Smart TV</label>
+            </value>
+            <value>
+                <fullName>SmartPhones</fullName>
+                <default>false</default>
+                <label>SmartPhones</label>
+            </value>
+            <value>
+                <fullName>Tablets</fullName>
+                <default>false</default>
+                <label>Tablets</label>
+            </value>
+            <value>
+                <fullName>Kitchen Appliances</fullName>
+                <default>false</default>
+                <label>Kitchen Appliances</label>
+            </value>
+            <value>
+                <fullName>Other Appliances</fullName>
+                <default>false</default>
+                <label>Other Appliances</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

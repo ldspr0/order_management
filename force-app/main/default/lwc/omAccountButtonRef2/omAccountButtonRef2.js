@@ -29,4 +29,3 @@ export default class OmAccountButtonRef2 extends NavigationMixin(LightningElemen
             });
     }
 }
-
