@@ -65,7 +65,6 @@ export default class OmApp extends LightningElement {
         }));
     }
 
-    // TODO:
     handleFilters(event) {
         this.activeFilters = JSON.stringify(event.detail);
     }

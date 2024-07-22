@@ -1,24 +1,31 @@
 <template>
     <lightning-card>
-        <h3 slot="title" class="slds-media slds-media_center slds-has-flexi-truncate">
-            <div class="slds-media__figure">
-                <lightning-icon icon-name="standard:account" size="medium" title={name}></lightning-icon>
+        <template lwc:if={accountId}>
+            <h3 slot="title" class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <lightning-icon icon-name="standard:account" size="medium" title={name}></lightning-icon>
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <span>{name}</span>
+                    </h2>
+                </div>
+            </h3>
+            <p class="slds-p-horizontal_small">Account Number: {accountNumber}</p>
+            <div slot="actions">
+                <lightning-button-group>
+                    <lightning-button lwc:if={isManager} label="Create Product" icon-name="utility:record_create"
+                        onclick={createProduct} aria-haspopup="dialog"
+                        ></lightning-button>
+                    <lightning-button label="Cart" icon-name="utility:cart" onclick={openCart}></lightning-button>
+                    <span lwc:if={cartItems} class="slds-badge slds-theme_success">{cartItems.length}</span>
+                </lightning-button-group>
             </div>
-            <div class="slds-media__body">
-                <h2 class="slds-card__header-title">
-                    <span>{name}</span>
-                </h2>
+        </template>
+        <template lwc:else>
+            <div class="slds-var-p-around_medium">
+                <c-om-account-search onselected={handleAccountSelect}></c-om-account-search>
             </div>
-        </h3>
-        <p class="slds-p-horizontal_small">Account Number: {accountNumber}</p>
-        <div slot="actions">
-            <lightning-button-group>
-                <lightning-button lwc:if={isManager} label="Create Product" icon-name="utility:record_create"
-                    onclick={createProduct} aria-haspopup="dialog"
-                    ></lightning-button>
-                <lightning-button label="Cart" icon-name="utility:cart" onclick={openCart}></lightning-button>
-                <span lwc:if={cartItems} class="slds-badge slds-theme_success">{cartItems.length}</span>
-            </lightning-button-group>
-        </div>
+        </template>
     </lightning-card>
 </template>

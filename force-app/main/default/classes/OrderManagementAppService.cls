@@ -104,6 +104,18 @@ public with sharing class OrderManagementAppService {
 
     }
 
+    
+    @AuraEnabled(cacheable=true)
+    public static List<Account> getAccounts(String searchTerm){
+        List<Account> accList = new List<Account>();
+        String searchKeyword = '';
+        if(searchTerm != null){
+            searchKeyword = '%'+searchTerm+'%';
+            accList = [SELECT Id, Name FROM Account WHERE Name LIKE :searchKeyword];
+        }
+        return accList;
+    }
+
     class OrderItemWrapper {
         public Id id;
         public String name;

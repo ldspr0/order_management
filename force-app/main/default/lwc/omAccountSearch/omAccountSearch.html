@@ -1,0 +1,33 @@
+<template>
+    <div>
+        {selectedAccount}
+        <lightning-input label="Select Correct Account for your Order" name="search-accounts"
+            onchange={handleSearch}></lightning-input>
+        <template if:true={dataPresent}>
+            <div style="height: 300px">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered"
+                    aria-labelledby="element-with-table-label other-element-with-table-label">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Account Name">Account Name</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={accList} for:item="acc">
+                            <tr class="slds-hint-parent" key={acc.Id}>
+                                <th scope="row" data-label="Cart Item Name">
+                                    <div class="slds-truncate" sytle="cursor:pointer;" data-id={acc.Id} data-number={acc.AccountNumber} title={acc.Id} onclick={getSelectedName}>{acc.Name}</div>
+                                </th>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+        <template if:false={dataPresent}>
+            <p>No Accounts found.</p>
+        </template>
+    </div>
+</template>

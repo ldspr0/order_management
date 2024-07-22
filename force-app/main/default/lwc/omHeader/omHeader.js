@@ -43,7 +43,16 @@ export default class OmHeader extends LightningElement {
     }
 
     openCart() {
-        if (this.cartItems.length > 0){
+        if (!this.accountId) {
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: "Error",
+                    message: "Account for current Order is not selected",
+                    variant: "error"
+                })
+            );
+        }
+        else if (this.cartItems.length > 0){
             openCartModal.open({
                 size: 'medium',
                 cartItems: this.cartItems,
@@ -58,6 +67,9 @@ export default class OmHeader extends LightningElement {
                 })
             );
         }
-        
+    }
+
+    handleAccountSelect(event) {
+        this.accountId = event.detail;
     }
 }
