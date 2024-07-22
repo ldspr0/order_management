@@ -2,6 +2,7 @@ import { LightningElement, wire, track } from 'lwc';
 import { CurrentPageReference } from "lightning/navigation";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
+
 import getProducts from '@salesforce/apex/OrderManagementAppService.getProducts';
 
 export default class OmApp extends LightningElement {
@@ -51,7 +52,6 @@ export default class OmApp extends LightningElement {
             this.products = this.allProducts;
         }
         this.searchString = searchString;
-
     }
 
     handleAddToCart(event) {

@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
+        <members>OrderItemTriggerHandler</members>
+        <members>OrderManagementAppService</members>
+        <members>OrderManagementAppServiceTest</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>OrderItemTrigger</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>omAccountButtonRef2</members>
+        <members>omAccountSearch</members>
+        <members>omApp</members>
+        <members>omCartView</members>
+        <members>omCreateProduct</members>
+        <members>omFilter</members>
+        <members>omHeader</members>
+        <members>omProductDetailsModal</members>
+        <members>omProductItem</members>
+        <name>LightningComponentBundle</name>
+    </types>
+    <types>
         <members>OrderItem__c.OrderId__c</members>
         <members>OrderItem__c.Price__c</members>
         <members>OrderItem__c.ProductId__c</members>
@@ -16,11 +38,7 @@
         <members>User.IsManager__c</members>
         <name>CustomField</name>
     </types>
-    <types>
-        <members>CustomLabels</members>
-        <name>CustomLabels</name>
-    </types>
-    <types>
+        <types>
         <members>Account</members>
         <members>OrderItem__c</members>
         <members>Order__c</members>
@@ -44,21 +62,16 @@
         <name>PermissionSet</name>
     </types>
     <types>
-        <members>Admin</members>
-        <members>Standard</members>
-        <name>Profile</name>
-    </types>
-    <types>
-        <members>Task.UpdateStatus</members>
+        <members>Account.OrderManagementTool</members>
         <name>QuickAction</name>
     </types>
     <types>
-        <members>ApexDevNet</members>
+        <members>glyffix</members>
         <name>RemoteSiteSetting</name>
     </types>
     <types>
-        <members>WorkDotCom</members>
-        <name>Settings</name>
+        <members>images_for_OrderManagement</members>
+        <name>CspTrustedSite</name>
     </types>
-    <version>58.0</version>
+    <version>60.0</version>
 </Package>

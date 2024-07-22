@@ -18,7 +18,7 @@
                         <template for:each={accList} for:item="acc">
                             <tr class="slds-hint-parent" key={acc.Id}>
                                 <th scope="row" data-label="Cart Item Name">
-                                    <div class="slds-truncate" sytle="cursor:pointer;" data-id={acc.Id} data-number={acc.AccountNumber} title={acc.Id} onclick={getSelectedName}>{acc.Name}</div>
+                                    <div class="slds-truncate" style="cursor:pointer;" data-id={acc.Id} data-number={acc.AccountNumber} title={acc.Id} onclick={getSelectedName}>{acc.Name}</div>
                                 </th>
                             </tr>
                         </template>
