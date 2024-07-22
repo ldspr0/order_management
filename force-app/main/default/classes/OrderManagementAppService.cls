@@ -123,13 +123,6 @@ public with sharing class OrderManagementAppService {
         public Integer quantity;
         public String accountId;
 
-        OrderItemWrapper(Id id, String name, Decimal price, Integer quantity, String accountId) {
-            this.id = id;
-            this.name = name;
-            this.price = price;
-            this.quantity = quantity;
-            this.accountId = accountId;
-        }
     }
 
 
@@ -140,22 +133,11 @@ public with sharing class OrderManagementAppService {
         List<glyffixDataWrapper> data; 
         String errormessage;
 
-        GlyffixWrapper(boolean success, String word, Integer rowcount, List<glyffixDataWrapper> data, String errormessage) {
-            this.success = success;
-            this.word = word;
-            this.rowcount = rowcount;
-            this.data = data;
-            this.errormessage = errormessage;
-        }
     }
 
     class GlyffixDataWrapper {
         String id;
         String imageurl;
 
-        GlyffixDataWrapper(String id, String imageurl) {
-            this.id = id;
-            this.imageurl = imageurl;
-        }
     }
 }
