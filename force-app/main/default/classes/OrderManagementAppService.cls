@@ -1,10 +1,19 @@
 public with sharing class OrderManagementAppService {
         
     @AuraEnabled(cacheable=true)
-    public static List<Product__c> getProducts(){
+    public static List<Product__c> getProducts(String filters){
         try {
+            List<String> filterStrings = new List<String>();
+            if (filters.length() > 0) {
+                filterStrings = (List<String>)JSON.deserializeStrict(filters, List<String>.class);
+            }
             if(Schema.sObjectType.Product__c.isAccessible()) {
-                return [SELECT Id, Name, Description__c, Family__c, Price__c, Type__c, Image__c FROM Product__c LIMIT 10000];
+                if (filterStrings.isEmpty()){
+                    return [SELECT Id, Name, Description__c, Family__c, Price__c, Type__c, Image__c FROM Product__c LIMIT 10000];
+                } else {
+                    return [SELECT Id, Name, Description__c, Family__c, Price__c, Type__c, Image__c FROM Product__c WHERE Family__c IN :filterStrings OR Type__c IN :filterStrings LIMIT 10000];
+                }
+                
             } else {
                 throw new AuraHandledException('You don\'t have access to the Product object');
             }

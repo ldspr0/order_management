@@ -3,11 +3,12 @@ import { CurrentPageReference } from "lightning/navigation";
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 import getProducts from '@salesforce/apex/OrderManagementAppService.getProducts';
+
 export default class OmApp extends LightningElement {
     @track products;
     @track cartItems = [];
     allProducts;
-    activeFilters;
+    activeFilters = "";
 
     searchString;
     error;
@@ -15,13 +16,16 @@ export default class OmApp extends LightningElement {
     @wire(CurrentPageReference)
     currentPageRef;
 
-    @wire(getProducts)
+    @wire(getProducts, {
+        filters: "$activeFilters"
+    })
     getPrdcts({ error, data }) {
         if (data) {
             this.products = data;
             this.allProducts = data;
         } else {
             this.error = error;
+            console.error(error);
         }
     }
 
@@ -29,15 +33,10 @@ export default class OmApp extends LightningElement {
         return this.currentPageRef.state.c__accountId;
     }
 
-    set accountId(value) {
-    }
-
     handleKeyUp(event) {
 
         const searchString = event.target.value;
-        console.log('searching?')
         if (searchString.length > 2) {
-            console.log('reducing');
             this.products = this.allProducts.filter(item => {
                 if (item.Name.toLowerCase().includes(searchString.toLowerCase())) {
                     return true;
@@ -64,5 +63,10 @@ export default class OmApp extends LightningElement {
             message: "Item is successfully added to the cart",
             variant: "success"
         }));
+    }
+
+    // TODO:
+    handleFilters(event) {
+        this.activeFilters = JSON.stringify(event.detail);
     }
 }

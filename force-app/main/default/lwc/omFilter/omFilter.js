@@ -3,12 +3,11 @@ import { getObjectInfo, getPicklistValuesByRecordType } from 'lightning/uiObject
 import PRODUCT_OBJECT from '@salesforce/schema/Product__c';
 
 export default class OmFilter extends LightningElement {
-    fieldNamesForEnabledFilters = ["Type__c", "Family__c"]; //TODO: закастить поле через xml наружу
-    @api activeFilters = [];
+    fieldNamesForEnabledFilters = ["Type__c", "Family__c"];
     @track filtersToActivate = [];
-    treeModel;
     error;
     recordTypeId;
+    treeModel;
 
     @wire(getObjectInfo, { objectApiName: PRODUCT_OBJECT })
     results({ error, data }) {
@@ -38,12 +37,10 @@ export default class OmFilter extends LightningElement {
     buildTreeModel(picklistValues) {
         const treeNodes = [];
         Object.keys(picklistValues)
-            .filter(item => { if (this.fieldNamesForEnabledFilters.includes(item)) { console.log(item); return true; } })
+            .filter(item => { if (this.fieldNamesForEnabledFilters.includes(item)) { return true; } })
             .forEach((picklist) => {
                 treeNodes.push({
-                    label: picklist,
-                    expanded: true,
-                    disabled: false,
+                    label: picklist.replace("__c", ""),
                     items: picklistValues[picklist].values.map((item) => ({
                         label: item.label,
                         name: item.value
@@ -54,11 +51,13 @@ export default class OmFilter extends LightningElement {
     }
 
     handleSelect(event) {
-        if (this.filtersToActivate.includes(event.detail.name)) {
-            this.filtersToActivate.pop(event.detail.name);
+        
+        if (event.target.checked) {
+            this.filtersToActivate.push(event.target.name);
+        } else {
+            this.filtersToActivate = this.filtersToActivate.filter(item => item !== event.target.name);
         }
-        else {
-            this.filtersToActivate.push(event.detail.name);
-        }
+
+        this.dispatchEvent(new CustomEvent('filter', {detail: this.filtersToActivate}));
     }
 }
