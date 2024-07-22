@@ -6,7 +6,10 @@ import getProducts from '@salesforce/apex/OrderManagementAppService.getProducts'
 export default class OmApp extends LightningElement {
     @track products;
     @track cartItems = [];
+    allProducts;
     activeFilters;
+
+    searchString;
     error;
 
     @wire(CurrentPageReference)
@@ -16,6 +19,7 @@ export default class OmApp extends LightningElement {
     getPrdcts({ error, data }) {
         if (data) {
             this.products = data;
+            this.allProducts = data;
         } else {
             this.error = error;
         }
@@ -26,6 +30,29 @@ export default class OmApp extends LightningElement {
     }
 
     set accountId(value) {
+    }
+
+    handleKeyUp(event) {
+
+        const searchString = event.target.value;
+        console.log('searching?')
+        if (searchString.length > 2) {
+            console.log('reducing');
+            this.products = this.allProducts.filter(item => {
+                if (item.Name.toLowerCase().includes(searchString.toLowerCase())) {
+                    return true;
+                }
+                if (item.Description__c) {
+                    if (item.Description__c.toLowerCase().includes(searchString.toLowerCase())) {
+                        return true;
+                    }
+                }
+            })
+        } else {
+            this.products = this.allProducts;
+        }
+        this.searchString = searchString;
+
     }
 
     handleAddToCart(event) {

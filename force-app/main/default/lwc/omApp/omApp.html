@@ -9,6 +9,17 @@
         <div class="slds-col slds-size_4-of-5">
             <span>
                 <div class="slds-grid slds-wrap">
+                    
+                    <div class="slds-col slds-size_1-of-1 slds-var-p-around_medium">
+                        <div onkeyup={handleKeyUp}>
+                          <lightning-input
+                            type="search"
+                            name="Enter Product Name"
+                            placeholder="Search for Products"
+                            value={searchString}
+                          ></lightning-input>
+                        </div>
+                    </div>
                     <template if:true={products}>
                         <template for:each={products} for:item="item">
                             <div class="slds-col slds-size_1-of-4" key={item.Id}>
